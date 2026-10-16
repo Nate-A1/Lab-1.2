@@ -1,0 +1,81 @@
+#include <vector>
+#include <iostream>
+#include <string>
+#include <windows.h>
+#include <clocale>
+
+using namespace std;
+
+struct Address {
+	string street;
+	int house;
+	int room;
+};
+
+struct Resident {
+	string fullName;
+	Address address;
+	string sex;
+	int age;
+};
+
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	setlocale(LC_ALL, "Russian");
+
+	int  k = 0;
+	vector <Resident> myResidents;
+	
+	cout << "Введите количество жильцов: ";
+	int numR;
+	cin >> numR;
+	cin.ignore();
+	
+	for (int i = 0; i < numR; i++) {
+		Resident resident;
+
+		cout << "Введите полное имя: ";
+		getline(cin, resident.fullName);
+
+		cout << "Введите улицу: ";
+		getline(cin, resident.address.street);
+
+		cout << "Введите номер дома: ";
+		cin >> resident.address.house;
+
+		cout << "Введите номер квартиры: ";
+		cin >> resident.address.room;
+
+		cout << "Введите пол (М/Ж): ";
+		cin >> resident.sex;
+
+		cout << "Введите возраст: ";
+		cin >> resident.age;
+		cin.ignore();
+
+		myResidents.push_back(resident);
+
+		cout << endl;
+	}
+	for (int i = 0; i < myResidents.size(); i++) {
+		cout << "Жилец номер " << i + 1 << ":" << endl;
+		cout << "ФИО: " << myResidents[i].fullName << endl;
+		cout << "Адрес: " << myResidents[i].address.street << ", " << myResidents[i].address.house << ", " << myResidents[i].address.room << endl;
+		cout << "Пол: " << myResidents[i].sex << endl;
+		cout << "Возраст: " << myResidents[i].age << endl;
+		cout << endl;
+	}
+	
+
+	for (int i = 0; i < myResidents.size(); i++) {
+		if (18 <= myResidents[i].age && myResidents[i].age <= 27 && (myResidents[i].sex == "М" || myResidents[i].sex == "M")) {
+			k++;
+		}
+	}
+
+
+	cout << "Количество мужчин призывного возраста: " << k << endl;
+}
+
